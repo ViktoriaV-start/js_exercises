@@ -1,0 +1,105 @@
+.main {
+  position: relative;
+}
+#messageHeader, #messageHeader1 {
+  height: 20px;
+}
+
+#footer, #footer1 {
+  margin-top: 2rem;
+  width: 376px;
+  background-color: #f2f2ef;
+  padding: 12px;
+}
+
+#message, #message1 {
+  margin-top: 2rem;
+  height: 76px;
+}
+
+#header, #header1 {
+  height: 28px;
+  width: 376px;
+  margin: 12px 10px 12px 0;
+}
+
+#button, .btn1 {
+  display: inline-block;
+  font-size: 11px;
+  color: rgb(68,68,68);
+  text-decoration: none;
+  user-select: none;
+  padding: .2em 0.6em;
+  outline: none;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 2px;
+  background: rgb(245,245,245) linear-gradient(#f4f4f4, #f1f1f1);
+  transition: all .218s ease 0s;
+  height: 28px;
+  width: 74px;
+}
+
+#button:hover, .btn1:hover {
+  color: rgb(24,24,24);
+  border: 1px solid rgb(198,198,198);
+  background: #f7f7f7 linear-gradient(#f7f7f7, #f1f1f1);
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+#button:active, .btn1:active {
+  color: rgb(51,51,51);
+  border: 1px solid rgb(204,204,204);
+  background: rgb(238,238,238) linear-gradient(rgb(238,238,238), rgb(224,224,224));
+  box-shadow: 0 1px 2px rgba(0,0,0,.1) inset;
+}
+
+.input, .input1 {
+  height: 28px;
+  margin-right: 10px;
+  width: 277px;
+  padding: 4px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0);
+  transition: .17s linear;
+}
+
+.input:focus, .input1:focus {
+  outline: none;
+  border: 1px solid #fdd734;
+  box-shadow: 0 0 1px 1px #fdd734;
+}
+
+.input_error, .input_error:focus {
+  outline: none;
+  border: 1px solid #f33;
+  box-shadow: 0 0 1px 1px #f33;
+}
+
+#notice {
+  position: absolute;
+  left: 30px;
+  margin: 0px;
+  top: -27px;
+  color: #f33;
+  display: none;
+}
+
+#header1 {
+  margin-top: 3rem;
+}
+
+.variant {
+  cursor: pointer;
+  padding: 6px 6px;
+}
+
+.variants {
+  background-color: #ffffff;
+  width: 375px;
+  font-size: 14px;
+}
+
+.invisible {
+  display: none;
+}

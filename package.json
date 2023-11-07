@@ -1,0 +1,16 @@
+{
+  "name": "wb1",
+  "version": "1.0.0",
+  "description": "Level 1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Viktoria Vasilyeva web.brew@yandex.ru",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "moment": "^2.29.4"
+  }
+}

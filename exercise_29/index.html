@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задача 29</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style/norm.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <h1 class="container">Задача 29</h1>
+  </header>
+  <main class="container customer__main">
+    <h2>Получить данные формы</h2>
+    <form class="customer__form">
+        
+      <div class="customer__fio">
+        <div class="customer__name-wrap">
+          <div class="customer__title hidden">Имя</div>
+          <input type="text" class="customer__name fio" maxlength="45" placeholder="Имя" name="name">
+          <div class="customer__error hidden">Укажите имя</div>
+        </div>
+        <div class="customer__surname-wrap">
+          <div class="customer__title hidden">Фамилия</div>
+          <input type="text" class="customer__name fio" maxlength="45" placeholder="Фамилия" name="surname">
+          <div class="customer__error hidden">Укажите фамилию</div>
+        </div>
+      </div>
+      
+      <div class="customer__contact">
+        <div class="customer__mail-wrap">
+          <div class="customer__title hidden">Почта</div>
+          <input type="email" class="customer__mail" maxlength="45" placeholder="Почта" name="mail" value="abc@mail.ru">
+          <div class="customer__error hidden">Укажите почту</div>
+        </div>
+        <div class="customer__phone-wrap">
+          <div class="customer__title">Телефон</div>
+          <input type="text" class="customer__phone" value="+7 (916) 123 45 67" placeholder="Телефон" name="phone">
+          <div class="customer__error hidden">Укажите телефон</div>
+        </div>
+        <div class="customer__inn-wrap">
+          <div class="customer__title hidden">ИНН</div>
+          <input type="text" class="customer__inn" maxlength="45" placeholder="ИНН" name="inn">
+          <div class="customer__info">Для таможенного оформления</div>
+          <div class="customer__error invisible">Укажите ИНН</div>
+        </div>
+      </div>
+
+      <button type="submit" class="customer__btn">Сохранить</button>
+    </form>
+  </main>
+
+  <div class="container info__wrap">
+    <div class="info invisible">
+      <div class="info__line">
+        <span class="info__title">Имя</span>
+        <div class="info__name"></div>
+      </div>
+      <div class="info__line">
+        <span class="info__title">Фамилия:</span>
+        <div class="info__surname"></div>
+      </div>
+      <div class="info__line">
+        <span class="info__title">Почта:</span>
+        <div class="info__mail"></div>
+      </div>
+      <div class="info__line">
+        <span class="info__title">Телефон:</span>
+        <div class="info__phone"></div>
+      </div>
+      <div class="info__line">
+        <span class="info__title">ИНН:</span>
+        <div class="info__inn"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./index.js"></script>
+
+</body>
+</html>
+
