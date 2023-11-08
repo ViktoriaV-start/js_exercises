@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задача 22</title>
+</head>
+<body>
+
+  <div>Some</div>
+  
+  <script>
+    let i = 0;
+    function foo() {
+      
+      try {
+        console.log(i);
+        document.write('<div>New</div>');
+        i++;
+        foo();
+      } catch(er) {
+        console.log(er);
+      }
+    }
+
+    // ПЕРВЫЙ ВАРИАНТ
+    //document.write(foo());
+
+    // ВТОРОЙ И ТРЕТИЙ ВАРИАНТ
+    document.write('<script src="./index.js"></' + 'script>');
+    
+
+  </script>
+
+<div>Some</div>
+
+
+
+</body>
+</html>
