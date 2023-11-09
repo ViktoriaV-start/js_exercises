@@ -1,0 +1,72 @@
+.password__header {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.main {
+  color: #36727A;
+}
+
+.password__form {
+  margin-top: 3rem;
+}
+
+.password__label {
+  font-size: 1.3rem;
+}
+
+.password__input {
+  width: 25rem;
+  padding: 5px;
+  font-size: 1.3rem;
+  border: none;
+  outline-color: #92b9be;
+}
+
+.password__btn {
+  width: 10rem;
+  width: 10rem;
+  padding: 5px;
+  font-size: 1.3rem;
+  border-radius: 8px;
+  border-color: #92b9be;
+  background-color: #92b9be;
+  color: #ffffff;
+}
+
+.password__btn:hover {
+  background-color: #54979f;
+}
+
+.password__txt {
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  letter-spacing: 3px;
+  margin-left: 10px;
+}
+
+.password__result, .password__suggest {
+  font-weight: 500;
+  margin-top: 2rem;
+}
+
+.password__suggest {
+  font-size: 1.2rem;
+}
+
+.password__result {
+  font-size: 1.5rem;
+}
+
+.red {
+  color: rgb(187, 8, 56);
+}
+
+.yellow {
+  color: rgb(220, 185, 12);
+}
+
+.green {
+  color: rgb(8, 123, 89);
+}
