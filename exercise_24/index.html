@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Задача 24</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style/norm.css">
+  <link rel="stylesheet" href="./css24.css">
+</head>
+<body>
+  <header class="header">
+    <h1 class="container">Задача 24</h1>
+  </header>
+  <main class="main">
+
+    <div class="error hidden">Ошибка при загрузке данных. Попробуйте позже...</div>
+
+    <section class="admin__container">
+      <div class="table__wrap">
+        <table class="table">
+          <thead>
+              <tr class="table__header">
+                  <td class="table__text table__btn" data-name="surname">
+                      <span class="table__btn" data-name="surname">Фамилия</span>
+                      <svg class="table__icon table__btn" data-name="surname" width="18" height="18" viewBox="0 0 320 512"><path class="table__btn" data-name="surname" d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z"/></svg>
+                  </td>
+                  <td class="table__text table__btn" data-name="name">
+                    <span class="table__btn" data-name="name">Имя</span>
+                    <svg class="table__icon table__btn" data-name="name" width="18" height="18" viewBox="0 0 320 512"><path class="table__btn" data-name="name" d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z"/></svg>
+                  </td>
+                  <td class="table__text table__btn" data-name="phone">
+                    <span class="table__btn" data-name="phone">Телефон</span>
+                    <svg class="table__icon table__btn" data-name="phone" width="18" height="18" viewBox="0 0 320 512"><path class="table__btn" data-name="phone" d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z"/></svg>
+                  </td>
+                  <td class="table__text table__btn" data-name="state">
+                    <span class="table__btn" data-name="state">Штат</span>
+                    <svg class="table__icon table__btn" data-name="state" width="18" height="18" viewBox="0 0 320 512"><path class="table__btn" data-name="state" d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z"/></svg>
+                  </td>
+                  <td class="table__text table__btn" data-name="city">
+                    <span class="table__btn" data-name="city">Город</span>
+                    <svg class="table__icon table__btn" data-name="city" width="18" height="18" viewBox="0 0 320 512"><path class="table__btn" data-name="city" d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z"/></svg>
+                    </td>
+                  <td class="table__text table__btn" data-name="address">
+                    <span class="table__btn" data-name="address">Адрес</span>
+                    <svg class="table__icon table__btn" data-name="address" width="18" height="18" viewBox="0 0 320 512"><path class="table__btn" data-name="address" d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z"/></svg></td>
+                  <td class="table__text table__btn" data-name="zip">
+                      <span class="table__btn" data-name="zip">Индекс</span>
+                      <svg class="table__icon table__btn" data-name="zip" width="18" height="18" viewBox="0 0 320 512"><path class="table__btn" data-name="zip" d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z"/></svg>
+                  </td>
+
+              </tr>
+          </thead>
+
+          <tbody class="table__body"></tbody>
+
+          <tfoot>
+              <tr class="table__footer"></tr>
+          </tfoot>
+
+        </table>
+      </div>
+
+  <div class="pagination">
+    <button type="button" class="pagination__lbtn"><</button>
+    <button type="button" class="pagination__rbtn">></button>
+  </div>
+
+</section>
+
+  </main>
+
+  <script src="./index.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+html,
+body {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  min-width: 700px;
+  background-color: #FFF9F0;
+}
+
+.container {
+  width: 1140px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+header {
+  background-color: #f0f8ff;
+  padding: 2rem 0;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #36727A;
+}
+
+.table {
+    width: 100%;
+}
+
+.table__wrap {
+  border-radius: 15px;
+  margin-top: 1rem;
+  background-color: #f7fafc;
+  box-shadow: -2px 4px 8px 1px rgb(119, 157, 184);;
+  position: relative;
+}
+
+.table__header {
+  border-bottom: 2px solid #e5e8eb;
+}
+
+.table__text {
+  text-align: center;
+  padding: 1.5rem 0 0.7rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4d4949;
+  cursor: pointer;
+}
+
+
+.table__icon {
+  fill: #808080;
+  margin-top: 2px;
+  vertical-align: bottom;
+}
+
+.table__text:hover {
+  color: #E82477;
+}
+
+.table__text:hover .table__icon {
+  fill: #E82477;
+}
+
+.table__pr {
+  padding-right: 0.5rem;
+}
+
+.table__tr {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.table__data {
+  background: #ffffff;
+  padding: 1rem 0.4rem;
+  text-align: center;
+  width: 14vw;
+}
+
+.table__client:hover {
+  background-color: #dae8ff;
+}
+
+.table__bgr {
+  background-color: #FFDFD6;;
+}
+
+.table__bgg {
+  background-color: #D6FFF3;
+}
+
+.table__bgb {
+  background-color: #84B3A5;
+}
+
+.table__footer {
+  height: 2rem;
+  border-top: 2px solid  #e5e8eb;
+}
+
+.table__sp {
+  background-color: #E0FFBD;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.pagination__rbtn, .pagination__lbtn {
+  display: block;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 5px;
+  background-color: rgb(14 116 144);
+  color: #ffffff;
+  font-size: 2rem;
+  border: none;
+  cursor: pointer;
+  margin: 0 1rem 0 1rem;
+  text-align: center;
+}
+
+.pagination__rbtn:hover, .pagination__lbtn:hover {
+  background-color: #418DA2;
+  box-shadow: -2px 4px 8px 1px rgb(119, 157, 184);
+}
+
+.pagination__page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.1rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 5px;
+  text-align: center;
+  background: #FFF9F0;
+  border: none;
+}
+
+.pagination__page:hover {
+  background-color: rgb(119, 157, 184);
+  color: #ffffff;
+  box-shadow: -2px 4px 8px 1px rgb(119, 157, 184);
+}
+
+.pagination__active {
+  border-bottom: 1px solid rgb(119, 157, 184);
+}
+
+.error {
+  color: #ff0049;
+  font-size: 1.5rem;
+  padding: 1rem 0 0 1rem;
+}
+
+.hidden {
+  visibility: hidden;
+}
