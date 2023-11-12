@@ -51,3 +51,14 @@ function  traverseDom(node) {
 //   }
 // }
 
+
+// ТРЕТИЙ ВАРИАНТ - без рекурсии,
+// node.getElementsByTagName('*') вернет HTMLCollection
+// function  traverseDom(node) {
+
+//   let elts = node.getElementsByTagName('*');
+//   console.log(elts)
+//   for (let i = 0; i < elts.length; i++) {
+//     console.log(elts[i])
+//   }
+// }
