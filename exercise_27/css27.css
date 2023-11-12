@@ -1,0 +1,61 @@
+html,
+body {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  min-width: 200px;
+  background-color: #FFF9F0;
+}
+
+.main {
+  position: relative;
+  height: 500px;
+  margin-top: 3vh;
+}
+
+.notice, .animate {
+  background-color: lightcoral;
+  border-radius: 8px;
+  position: absolute;
+}
+
+@keyframes animate {
+  from {
+    bottom: -40vh;
+    width: 40vh;
+    height: 40vh;
+  }
+
+  to {
+    bottom: calc(100vh - 7rem - 12vh);
+    width: 9vh;
+    height: 9vh;
+  }
+}
+
+@-webkit-keyframes animate {
+  from {
+    bottom: -40vh;
+    width: 40vh;
+    height: 40vh;
+  }
+
+  to {
+    bottom: calc(100vh - 7rem - 12vh);
+    width: 9vh;
+    height: 9vh;
+  }
+}
+
+ .animate {
+  width: 40vh;
+  height: 40vh;
+  left: 3vh;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-name: animate;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-transition-timing-function: linear;
+  animation-duration: 2s;
+  animation-name: animate;
+  animation-fill-mode: forwards;
+  transition-timing-function: linear;
+}
