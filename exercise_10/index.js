@@ -58,30 +58,33 @@ function toJson(x) {
 }
 
 
-// console.log(JSON.stringify([1,2,3]), typeof JSON.stringify([1,2,3]))
-// console.log(toJson([1,2,3]), typeof toJson([1,2,3]));
+console.log(JSON.stringify([1,2,3]), typeof JSON.stringify([1,2,3]))
+console.log(toJson([1,2,3]), typeof toJson([1,2,3]));
 
-// console.log(JSON.stringify([]), typeof JSON.stringify([]))
-// console.log(toJson([]), typeof toJson([]));
+console.log(JSON.stringify([]), typeof JSON.stringify([]))
+console.log(toJson([]), typeof toJson([]));
 
-// console.log(JSON.stringify([1, "false", false]), typeof JSON.stringify([1, "false", false]));
-// console.log(toJson([1, "false", false]), typeof toJson([1, "false", false]));
+console.log(JSON.stringify([1, "false", false]), typeof JSON.stringify([1, "false", false]));
+console.log(toJson([1, "false", false]), typeof toJson([1, "false", false]));
 
 
-// console.log(JSON.stringify(555), typeof JSON.stringify(555));
-// console.log(toJson(555), typeof toJson(555));
+console.log(JSON.stringify(555), typeof JSON.stringify(555));
+console.log(toJson(555), typeof toJson(555));
 
-// console.log(JSON.stringify(true), typeof JSON.stringify(true));
-// console.log(toJson(true), typeof toJson(true));
+console.log(JSON.stringify(true), typeof JSON.stringify(true));
+console.log(toJson(true), typeof toJson(true));
 
-// console.log(JSON.stringify('foo'), typeof JSON.stringify('foo'));
-// console.log(toJson('abc'), typeof toJson('abc'));
+console.log(JSON.stringify('abc'), typeof JSON.stringify('foo'));
+console.log(toJson('abc'), typeof toJson('abc'));
 
-// console.log(toJson(undefined));
-// console.log(toJson(null));
+console.log(JSON.stringify(undefined));
+console.log(toJson(undefined));
 
-// console.log(JSON.stringify({}), typeof JSON.stringify({}))
-// console.log(toJson({}), typeof toJson({}));
+console.log(JSON.stringify(null));
+console.log(toJson(null));
+
+console.log(JSON.stringify({}), typeof JSON.stringify({}));
+console.log(toJson({}), typeof toJson({}));
 
 
 console.log(JSON.stringify(obj));
@@ -113,4 +116,4 @@ const products = [
 ];
 
 console.log(JSON.stringify(products));
-console.log(toJson(products))
+console.log(toJson(products));

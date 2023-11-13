@@ -8,7 +8,7 @@
 
 
 // Это мой токен для разработки, действует примерно сутки
-const token = 'vk1.a.5D51XZ18h_ADCOYEWgeZYYUjxwTHJcwqt0lXTFEG2QLX8AV2VhSdd1BrZLzX-6St87i1E1KeVzrLsLAIV6R9NoVwJF4H90iAfkkW81BwLsOYD6bJSpJiomUMZ_9L-LQ6wDFb5Mf6wfMdXKn2MTkgRO6RicchpnFAQWXSoin3APw4kgb0XcHXt22x3snkWrH9';
+const token = 'vk1.a.6Qwqr2ka7e_Rz0d4MZiGVdoWLpbReuYSf9srgyOwaaLZFqo3C5g0wQw27nOUt0rymiBWYAGUoDs_cxM4QMCaRjm_SOuHDND5QiYxakUs6przTr7zxJPWw1K3AtpuBnvTSPKEomwQU4pnzf7r5h3-DFvbNhxzaCUq6gd0mvYdomdQDdkfe-Ki8LjKtw3N6d--';
 
 const posts = {};
 let counter = 0;
@@ -63,12 +63,12 @@ addScript();
  * Обработать пришедшие данные VK
  */
 function onVkData(res) {
-  
+  if(!res.response) throw new Error("Ошибка при загрузке");
   let result = res.response.items;
   let length = result.length;
 
   for (let i = 0; i <length; i++ ) {
-    posts[i] = result[i].text;
+      posts[i] = result[i].text;
   }
   insertPosts();
 }
@@ -113,6 +113,7 @@ function insertPosts() {
     if (offset == 0) {
     console.log('Первичный вход')
     for (let i = 0; i < 5; i++) {
+      console.log(i)
       postsMarkup += getPostMarkup(tempCounter);
       localStorage['vk' + counter] = posts[tempCounter];
       localStorage.counter = counter;
@@ -121,13 +122,13 @@ function insertPosts() {
     }
     isLocalStorageRendered = true;
   }
-  
+
   if (localStorage.length != 0 && !isLocalStorageRendered ) {
-    console.log('Рендер постов из localStorage')
-    for (let i = 0; i < localStorage.length; i++) {
-      if (localStorage.key(i)[0] == 'v' && localStorage.key(i)[1] == 'k') {
-        postsMarkup += getPostMarkupStorage(localStorage.key(i));
-      }
+    console.log('Рендер постов из localStorage');
+    let lng = localStorage.counter;
+    
+    for (let i = 0; i < lng; i++) {
+      postsMarkup += getPostMarkupStorage('vk' + i);
     }
     isLocalStorageRendered = true;
 

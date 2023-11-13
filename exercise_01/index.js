@@ -6,7 +6,6 @@
  * @param {number | string} value
  * @return {boolean | string}
  */
-
 const isPalindrome = function(value) {
 
   if ((typeof value) !== 'string' && (typeof value) !== 'number') {

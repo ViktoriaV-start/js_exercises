@@ -7,6 +7,8 @@
 
 // Приорите инлайн-стилей выше, чем приоритет стилей, заданных через класс во внешенй таблице стилей
 
+'use strict';
+
 function createEl(tag, className, content, node) {
   let element = document.createElement(tag);
 

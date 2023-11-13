@@ -32,8 +32,10 @@ function getMaxMemory() {
 
   console.log("total = " + (total/1024/1024).toFixed(2) +" MB");
 
+  localStorage.clear();
+
   return (total/1024/1024).toFixed(2);
 }
 
 const maxStorageMemory = getMaxMemory();
-console.log(maxStorageMemory)
+console.log(maxStorageMemory);

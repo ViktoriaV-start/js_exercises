@@ -21,4 +21,4 @@ const WIKI_LIMIT = "&limit=10";
     }
   }
 
-  getData('кошка').then((data) => console.log(data[1]))
+  getData('кошка').then((data) => console.log(data[1]));

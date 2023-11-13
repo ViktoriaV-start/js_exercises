@@ -23,15 +23,15 @@ const func4 = () => {
 
 /**
  * @param {Function []} arr
- * @return {() => string}
+ * @return {() => string[]}
  */
 
 const execute = (arr) => {
 
   return () => {
-    let result = '';
+    let result = [];
     for (let func of arr) {
-      result += func();
+      result.push(func());
     }
     return result;
   }
@@ -40,5 +40,6 @@ const execute = (arr) => {
 const run1 = execute([func1, func2]);
 const run2 = execute([func1, func2, func3, func4]);
 
+console.log(run1);
 console.log(run2());
 console.log(run1());

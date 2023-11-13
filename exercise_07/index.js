@@ -22,7 +22,7 @@ const func3 = () => {
 };
 
 /**
- * Перевести JSON объект в связанный список
+ * Выполнение
  * @param {Function []} arr
  * @return {void}
  */

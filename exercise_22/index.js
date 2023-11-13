@@ -1,3 +1,8 @@
+// см. README
+
+
+'use strict';
+
 let j = 0;
 
 // ВТОРОЙ ВАРИАНТ

@@ -11,6 +11,8 @@
 // someElement.children вернет HTMLCollection
 // someElement.childNodes вернет NodeList
 
+'use strict';
+
 window.onload = function() {
   traverseDom (document.body);
 }

@@ -66,4 +66,4 @@ try {
 }
 
 console.log('Размер коллстека: ' + (((40 * (j - 1)) / (i - j - 2)) * (i - 1)).toFixed(0) + ' байт');
-console.log('Размер Execution Context: ' +((40 * (j - 1)) / (i - j - 2)))
+console.log('Размер Execution Context: ' +((40 * (j - 1)) / (i - j - 2)));
