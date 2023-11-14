@@ -93,7 +93,7 @@ function init() {
 
   document.querySelector('.password__form').addEventListener('submit', e => {
     e.preventDefault();
-    password = document.querySelector('.password__input').value.trim();
+    let password = document.querySelector('.password__input').value.trim();
     if (password) check(password);
   })
 }

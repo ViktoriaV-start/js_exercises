@@ -113,7 +113,7 @@ function insertPosts() {
     if (offset == 0) {
     console.log('Первичный вход')
     for (let i = 0; i < 5; i++) {
-      console.log(i)
+
       postsMarkup += getPostMarkup(tempCounter);
       localStorage['vk' + counter] = posts[tempCounter];
       localStorage.counter = counter;
@@ -125,10 +125,13 @@ function insertPosts() {
 
   if (localStorage.length != 0 && !isLocalStorageRendered ) {
     console.log('Рендер постов из localStorage');
+
     let lng = localStorage.counter;
-    
+
     for (let i = 0; i < lng; i++) {
-      postsMarkup += getPostMarkupStorage('vk' + i);
+      if (localStorage['vk' + i]) {
+        postsMarkup += getPostMarkupStorage('vk' + i);
+      }
     }
     isLocalStorageRendered = true;
 

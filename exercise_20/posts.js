@@ -82,7 +82,7 @@ function onVkData(res) {
   let result = res.response.items;
   let length = result.length;
 
-  for (let i = 0; i <length; i++ ) {
+  for (let i = 0; i < length; i++ ) {
     posts[i] = result[i].text;
   }
   insertPosts();
@@ -142,7 +142,9 @@ function insertPosts() {
     let lng = localStorage.counter;
     
     for (let i = 0; i < lng; i++) {
-      postsMarkup += getPostMarkupStorage('vk' + i);
+      if (localStorage['vk' + i]) {
+        postsMarkup += getPostMarkupStorage('vk' + i);
+      }
     }
 
     isLocalStorageRendered = true;
