@@ -1,19 +1,28 @@
 'use strict';
 
-// console.log(String(document.location.href).split('?')[1].split('&')[0].split('=')[1]);
-// const token = String(document.location.href).split('?')[1].split('&')[0].split('=')[1];
-
-// Для Guthub pages:
-//const token = String(document.location.href).split('#')[1].split('&')[0].split('=')[1];
-
-
 // Это мой токен для разработки, действует примерно сутки
-const token = 'vk1.a.6Qwqr2ka7e_Rz0d4MZiGVdoWLpbReuYSf9srgyOwaaLZFqo3C5g0wQw27nOUt0rymiBWYAGUoDs_cxM4QMCaRjm_SOuHDND5QiYxakUs6przTr7zxJPWw1K3AtpuBnvTSPKEomwQU4pnzf7r5h3-DFvbNhxzaCUq6gd0mvYdomdQDdkfe-Ki8LjKtw3N6d--';
+const token = 'vk1.a.-yd_nHIfYIHDd4FIvb6vDPlakjMNBgPdlmhR_1cvEDfIBjkLl8V07JO9xqs6kYSBCxjK5zZoKy1cqpxdUskEorZmeFMjtnXOYtP3r4SORu8RSLMh5DdAI1IKhLRQfRnHp9ZH7YJr9Lu7wJW5r_ttgs_2OfoAV6u8L41vgIqdjupIa_PxBLJ0-ZJ11kIvDjiQ';
 
 const posts = {};
 let counter = 0;
 let offset = 0;
 let tempCounter = 0;
+
+// Флаг - отмечает загрузку всех имевшихся при открытии страницы постов из localStorage
+let isLocalStorageRendered = false;
+
+// Контейнер для постов на странице
+let scrollContainer = document.querySelector('.scrollContainer');
+
+// Слушатель события скрола, вызвать функцию обработчик
+document.querySelector('.main__content').addEventListener('scroll', scrollContent);
+
+if (localStorage.counter && localStorage.counter !== 0) {
+  counter = localStorage.counter;
+  offset = localStorage.counter;
+}
+
+addScript();
 
 
 /**
@@ -22,7 +31,7 @@ let tempCounter = 0;
 function getSortedKeys() {
   let vkKeys = [];
   for (let i = 0; i < localStorage.length; i++) {
-    if (localStorage.key(i)[0] == 'v' && localStorage.key(i)[1] == 'k') {
+    if (localStorage.key(i)[0] === 'v' && localStorage.key(i)[1] === 'k') {
       vkKeys.push(localStorage.key(i).slice(2));
     }
   }
@@ -30,20 +39,6 @@ function getSortedKeys() {
   vkKeys = vkKeys.sort((a, b) => a - b);
   
   return vkKeys;
-}
-
-
-function checkLocalStorage() {
-  if (!getSortedKeys().length && localStorage.length) {
-    localStorage.clear();
-  }
-}
-checkLocalStorage();
-
-
-if (localStorage.length != 0) {
-  counter = localStorage.length-1;
-  offset = localStorage.length-1;
 }
 
 /**
@@ -56,8 +51,6 @@ function addScript() {
   elem.src = `https://api.vk.com/method/wall.get?access_token=${token}&owner_id=-33276697&fields=bdate&offset=${offset}&count=100&v=5.131&callback=onVkData`;
   document.querySelector('body').insertAdjacentElement('beforeend', elem);
 }
-
-addScript();
 
 /**
  * Обработать пришедшие данные VK
@@ -72,12 +65,6 @@ function onVkData(res) {
   }
   insertPosts();
 }
-
-// Контейнер для постов на странице
-let scrollContainer = document.querySelector('.scrollContainer');
-
-// Слушатель события скрола, вызвать функцию обработчик
-document.querySelector('.main__content').addEventListener('scroll', scrollContent);
 
 /**
  * Отследить скролл и подгрузить посты. Запросить новый пакет постов VK, если имеющиеся в posts уже загружены на страницу.
@@ -99,9 +86,6 @@ function scrollContent() {
   }
 }
 
-// Флаг - отмечает загрузку всех имевшихся при открытии страницы постов из localStorage
-let isLocalStorageRendered = false;
-
 /**
  * Добавление постов на страницу
  */
@@ -110,7 +94,7 @@ function insertPosts() {
 
 // При первом входе
 // if (localStorage.length == 0 || (localStorage.length != 0 && isLocalStorageRendered && offset == 0)) {
-    if (offset == 0) {
+    if (offset === 0) {
     console.log('Первичный вход')
     for (let i = 0; i < 5; i++) {
 
@@ -123,7 +107,7 @@ function insertPosts() {
     isLocalStorageRendered = true;
   }
 
-  if (localStorage.length != 0 && !isLocalStorageRendered ) {
+  if (localStorage.length !== 0 && !isLocalStorageRendered ) {
     console.log('Рендер постов из localStorage');
 
     let lng = localStorage.counter;
@@ -135,7 +119,7 @@ function insertPosts() {
     }
     isLocalStorageRendered = true;
 
-  } else if (localStorage.length != 0 && isLocalStorageRendered && offset != 0) {
+  } else if (localStorage.length !== 0 && isLocalStorageRendered && offset !== 0) {
       console.log('Рендер новых постов при offset != 0 и отображенном localStorage')
 
       for (let i = 0; i < 5; i++) {
@@ -161,7 +145,6 @@ function insertPosts() {
 
   scrollContainer.insertAdjacentHTML('beforebegin', postsMarkup);
 }
-
 
 /**
  * Разметка одного поста из объекта posts
