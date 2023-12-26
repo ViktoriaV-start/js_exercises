@@ -1,65 +1,215 @@
 'use strict';
 
-// console.log(String(document.location.href).split('?')[1].split('&')[0].split('=')[1]);
-// const token = String(document.location.href).split('?')[1].split('&')[0].split('=')[1];
-
-// Для Guthub pages:
-//const token = String(document.location.href).split('#')[1].split('&')[0].split('=')[1];
-
 
 // Это мой токен для разработки, действует примерно сутки
-const token = 'vk1.a.6Qwqr2ka7e_Rz0d4MZiGVdoWLpbReuYSf9srgyOwaaLZFqo3C5g0wQw27nOUt0rymiBWYAGUoDs_cxM4QMCaRjm_SOuHDND5QiYxakUs6przTr7zxJPWw1K3AtpuBnvTSPKEomwQU4pnzf7r5h3-DFvbNhxzaCUq6gd0mvYdomdQDdkfe-Ki8LjKtw3N6d--';
+const TOKEN = 'vk1.a.MsYxJnEPwXwzWltP-ARxb49Wgkph6v5u3g3gHEASMz6IlatnjpV_Z0kkniogJezBFsJFmPAl28CqeWq643JUiqqE00Uw1UAcL2eFJC5OB4LDJ2F3zSpELBlfl75saWQHyLzI4JnZZTJ5KiepsVaR8-mwopmlylP3CPLcH9SUislDl1as1vrl6Y6vBx4DZLJK';
 
-const posts = {};
-let counter = 0;
-let offset = 0;
-let tempCounter = 0;
-checkLocalStorage();
-let maxStorageMemory = localStorage.maxStorageMemory ?? getMaxMemory();
+class Posts {
+
+  posts = {};
+  counter = 0;
+  offset = 0;
+  tempCounter = 0;
+  scrollContainer = document.querySelector('.scrollContainer');
+  isLocalStorageRendered = false;
+  maxStorageMemory = 0;
+
+  constructor() {
+    this.maxStorageMemory = localStorage.maxStorageMemory ?? this.getMaxMemory();
+    this.init();
+  }
+
+  init() {
+    if (localStorage.counter && localStorage.counter !== 0) {
+      this.counter = localStorage.counter;
+      this.offset = localStorage.counter;
+    }
+
+    // Слушатель события скрола, вызвать функцию обработчик
+    document.querySelector('.main__content').addEventListener('scroll', this.scrollContent.bind(this));
+  }
 
 
+  /**
+   * Возвращает отсортированный массив ключей localStorage без приставки vk
+   */
+  getSortedKeys() {
+    let vkKeys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i)[0] === 'v' && localStorage.key(i)[1] === 'k') {
+        vkKeys.push(localStorage.key(i).slice(2));
+      }
+    }
 
-/**
- * Возвращает отсортированный массив ключей localStorage без приставки vk
- */
-function getSortedKeys() {
-  let vkKeys = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    if (localStorage.key(i)[0] == 'v' && localStorage.key(i)[1] == 'k') {
-      vkKeys.push(localStorage.key(i).slice(2));
+    vkKeys = vkKeys.sort((a, b) => a - b);
+
+    return vkKeys;
+  }
+
+  /**
+   * Обработать пришедшие данные VK
+   */
+  onVkData(res) {
+    if(!res.response) throw new Error("Ошибка при загрузке");
+    let result = res.response.items;
+    let length = result.length;
+
+    for (let i = 0; i <length; i++ ) {
+      this.posts[i] = result[i].text;
+    }
+    this.insertPosts();
+  }
+
+  /**
+   * Отследить скролл и подгрузить посты. Запросить новый пакет постов VK, если имеющиеся в posts уже загружены на страницу.
+   */
+  scrollContent() {
+
+    if (document.querySelector('.main__content').scrollTop + 500 >= document.querySelector('.main__content').scrollHeight) {
+
+      if (Object.keys(this.posts).length > this.tempCounter + 1) {
+        this.insertPosts();
+      }
+
+      if (this.tempCounter >= 100 ){
+        console.log('Новый запрос');
+        this.tempCounter = 0;
+        this.offset = this.counter;
+        addScript();
+      }
     }
   }
 
-  vkKeys = vkKeys.sort((a, b) => a - b);
-  
-  return vkKeys;
-}
+  /**
+   * Добавление постов на страницу
+   */
+  insertPosts() {
+    let postsMarkup = '';
 
-/**
- * Проверить localStorage, очистить его, если localStorage не содержит постов и не является пустым
- */
-function checkLocalStorage() {
-  if (!getSortedKeys().length && localStorage.length) {
+// При первом входе
+    if (this.offset === 0) {
+      console.log('Первичный вход')
+      for (let i = 0; i < 5; i++) {
+
+        postsMarkup += this.getPostMarkup(this.tempCounter);
+        localStorage['vk' + this.counter] = this.posts[this.tempCounter];
+        localStorage.counter = this.counter;
+        this.counter++;
+        this.tempCounter++;
+      }
+      this.isLocalStorageRendered = true;
+    }
+
+    if (localStorage.length !== 0 && !this.isLocalStorageRendered ) {
+      console.log('Рендер постов из localStorage');
+
+      let lng = localStorage.counter;
+
+      for (let i = 0; i < lng; i++) {
+        if (localStorage['vk' + i]) {
+          postsMarkup += this.getPostMarkupStorage('vk' + i);
+        }
+      }
+      this.isLocalStorageRendered = true;
+
+    } else if (localStorage.length !== 0 && this.isLocalStorageRendered && this.offset !== 0) {
+      console.log('Рендер новых постов при offset != 0 и отображенном localStorage')
+
+      for (let i = 0; i < 5; i++) {
+        postsMarkup += this.getPostMarkup(this.tempCounter);
+
+        try {
+          localStorage['vk' + this.counter] = this.posts[this.tempCounter];
+          localStorage.counter = this.counter;
+        } catch (er) {
+          console.log(er);
+
+          let keys = this.getSortedKeys();
+
+          for (let i = 0; i < 10; i++) {
+            localStorage.removeItem(`vk${keys[i]}`);
+          }
+        }
+
+        this.counter++;
+        this.tempCounter++;
+      }
+    }
+
+    console.log(`Объем занятой памяти - ${this.getStorageValue()} KB / максимальный размер хранилища - ${this.maxStorageMemory} KB`);
+
+    this.scrollContainer.insertAdjacentHTML('beforebegin', postsMarkup);
+  }
+
+  /**
+   * Разметка одного поста из объекта posts
+   * @param {number | string} idx
+   * @returns {string} html-разметка одного поста
+   */
+  getPostMarkup(idx) {
+    return `<div class="post">${this.posts[idx]}</div>`;
+  }
+
+  /**
+   * Разметка одного поста из localStorage
+   * @param {string} key
+   * @returns {string} html-разметка одного поста
+   */
+  getPostMarkupStorage(key) {
+    return `<div class="post">${localStorage[key]}</div>`;
+  }
+
+  /**
+   * Подсчет максимальной памяти
+   * @returns {number}
+   */
+  getMaxMemory() {
+    let total = 0;
     localStorage.clear();
+
+    try{
+      let i = 0;
+      // ЗДЕСЬ МОЖНО ЧЕРЕЗ WHILE (TRUE)
+      while (i < 25000) {
+        localStorage.setItem(`Key${i}`, "Window.localStorage: Свойство localStorage позволяет получить доступ к Storage объекту. localStorage аналогично свойству sessionStorage (en-US). Разница только в том, что свойство sessionStorage хранит данные в течение сеанса (до закрытия браузера), в отличие от данных, находящихся в свойстве localStorage, которые не имеют ограничений по времени хранения и могут быть удалены только с помощью JavaScript.");
+        i++;
+      }
+    } catch (er) {
+      console.log(er);
+    }
+
+    total = this.getStorageValue();
+
+    console.log("Максимальный размер localStorage = " + total +" KB");
+
+    localStorage.clear();
+
+    return total;
   }
-}
 
-function getMaxStorageMemory() {
-  if (localStorage.maxStorageMemory) {
-    return localStorage.maxStorageMemory;
-  } else {
-    maxStorageMemory = getMaxMemory();
-    localStorage.maxStorageMemory = maxStorageMemory;
+  /**
+   * Подсчет объема занятой памяти в localStorage
+   * @returns {number}
+   */
+  getStorageValue() {
+    let total = 0;
+    for(let x in localStorage) {
+
+      if (!localStorage.hasOwnProperty(x)) {
+        continue;
+      }
+
+      let size = (((localStorage[x].length + x.length) * 2));
+      total += size;
+    }
+    return (total/1024).toFixed(2);
   }
+
+
 }
 
-console.log(maxStorageMemory);
-
-
-if (localStorage.length != 0) {
-  counter = localStorage.length-1;
-  offset = localStorage.length-1;
-}
+const posts = new Posts();
+addScript();
 
 /**
  * Загрузить данные VK
@@ -68,178 +218,10 @@ function addScript() {
 
   let elem = document.createElement("script");
 
-  elem.src = `https://api.vk.com/method/wall.get?access_token=${token}&owner_id=-33276697&fields=bdate&offset=${offset}&count=100&v=5.131&callback=onVkData`;
+  elem.src = `https://api.vk.com/method/wall.get?access_token=${TOKEN}&owner_id=-33276697&fields=bdate&offset=${posts.offset}&count=100&v=5.131&callback=onVkData`;
   document.querySelector('body').insertAdjacentElement('beforeend', elem);
 }
 
-addScript();
-
-/**
- * Обработать пришедшие данные VK
- */
-function onVkData(res) {
-  
-  let result = res.response.items;
-  let length = result.length;
-
-  for (let i = 0; i < length; i++ ) {
-    posts[i] = result[i].text;
-  }
-  insertPosts();
-}
-
-// Контейнер для постов на странице
-let scrollContainer = document.querySelector('.scrollContainer');
-
-// Слушатель события скрола, вызвать функцию обработчик
-document.querySelector('.main__content').addEventListener('scroll', scrollContent);
-
-/**
- * Отследить скролл и подгрузить посты. Запросить новый пакет постов VK, если имеющиеся в posts уже загружены на страницу.
- */
-function scrollContent() {
-
-  if (document.querySelector('.main__content').scrollTop + 500 >= document.querySelector('.main__content').scrollHeight) {
-
-    if (Object.keys(posts).length > tempCounter + 1) {
-      insertPosts();
-    }
-
-    if (tempCounter >= 100 ){
-      console.log('Новый запрос');
-      tempCounter = 0;
-      offset = counter;
-      addScript();
-    }
-  }
-}
-
-// Флаг - отмечает загрузку всех имевшихся при открытии страницы постов из localStorage
-let isLocalStorageRendered = false;
-
-/**
- * Добавление постов на страницу
- */
-function insertPosts() {
-  let postsMarkup = '';
-
-// При первом входе
-// if (localStorage.length == 0 || (localStorage.length != 0 && isLocalStorageRendered && offset == 0)) {
-    if (offset == 0) {
-    console.log('Первичный вход')
-    for (let i = 0; i < 5; i++) {
-      postsMarkup += getPostMarkup(tempCounter);
-      localStorage['vk' + counter] = posts[tempCounter];
-      localStorage.counter = counter;
-      counter++;
-      tempCounter++;
-    }
-    isLocalStorageRendered = true;
-  }
-  
-  if (localStorage.length != 0 && !isLocalStorageRendered ) {
-    console.log('Рендер постов из localStorage');
-    let lng = localStorage.counter;
-    
-    for (let i = 0; i < lng; i++) {
-      if (localStorage['vk' + i]) {
-        postsMarkup += getPostMarkupStorage('vk' + i);
-      }
-    }
-
-    isLocalStorageRendered = true;
-
-  } else if (localStorage.length != 0 && isLocalStorageRendered && offset != 0) {
-      console.log('Рендер новых постов при offset != 0 и отображенном localStorage')
-
-      for (let i = 0; i < 5; i++) {
-        postsMarkup += getPostMarkup(tempCounter);
-
-        try {
-          localStorage['vk' + counter] = posts[tempCounter];
-          localStorage.counter = counter;
-        } catch (er) {
-          console.log(er);
-
-          let keys = getSortedKeys();
-
-          for (let i = 0; i < 10; i++) {
-            localStorage.removeItem(`vk${keys[i]}`);
-          }
-        }
-        counter++;
-        tempCounter++;
-      }
-  }
-
-  console.log(`Объем занятой памяти - ${getStorageValue()} KB / максимальный размер хранилища - ${maxStorageMemory} KB`);
-
-  scrollContainer.insertAdjacentHTML('beforebegin', postsMarkup);
-}
-
-
-/**
- * Разметка одного поста из объекта posts
- * @param {number | string} idx
- * @returns {string} html-разметка одного поста
- */
-function getPostMarkup(idx) {
-  return `<div class="post">${posts[idx]}</div>`;
-}
-
-/**
- * Разметка одного поста из localStorage
- * @param {string} key
- * @returns {string} html-разметка одного поста
- */
-function getPostMarkupStorage(key) {
-  return `<div class="post">${localStorage[key]}</div>`;
-}
-
-
-/**
- * Подсчет максимальной памяти
- * @returns {number}
- */
-function getMaxMemory() {
-  let total = 0;
-  localStorage.clear();
-
-  try{
-    let i = 0;
-    // ЗДЕСЬ МОЖНО ЧЕРЕЗ WHILE (TRUE)
-    while (i < 25000) {
-      localStorage.setItem(`Key${i}`, "Window.localStorage: Свойство localStorage позволяет получить доступ к Storage объекту. localStorage аналогично свойству sessionStorage (en-US). Разница только в том, что свойство sessionStorage хранит данные в течение сеанса (до закрытия браузера), в отличие от данных, находящихся в свойстве localStorage, которые не имеют ограничений по времени хранения и могут быть удалены только с помощью JavaScript.");
-      i++;
-    }
-  } catch (er) {
-    console.log(er);
-  }
-
-  total = getStorageValue();
-
-  console.log("Максимальный размер localStorage = " + total +" KB");
-
-  localStorage.clear();
-  localStorage.maxStorageMemory = total;
-
-  return total;
-}
-
-/**
- * Подсчет объема занятой памяти в localStorage
- * @returns {number}
- */
-function getStorageValue() {
-  let total = 0;
-  for(let x in localStorage) { 
-  
-    if (!localStorage.hasOwnProperty(x)) {
-      continue;
-    }
-
-    let size = (((localStorage[x].length + x.length) * 2)); 
-    total += size; 
-  }
-  return (total/1024).toFixed(2);
+const onVkData = (res) => {
+  posts.onVkData(res);
 }
