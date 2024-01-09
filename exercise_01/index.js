@@ -6,22 +6,25 @@
  * @param {number | string} value
  * @return {boolean | string}
  */
-const isPalindrome = function(value) {
 
-  if ((typeof value) !== 'string' && (typeof value) !== 'number') {
-    return "Введенное значение не является ни строкой, ни числом";
-  }
+//------------------ ПЕРВЫЙ ВАРИАНТ БЕЗ ЗНАКОВ ПРЕПИНАНИЯ
 
-  let str = value.toString().replace(/ /g, '');
-  let reverseStr = str.split('').reverse().join('');
-    if (str === reverseStr) {
-      return true;
-    }
-    return false;
-};
+// const isPalindrome = function(value) {
+
+//   if ((typeof value) !== 'string' && (typeof value) !== 'number') {
+//     return "Введенное значение не является ни строкой, ни числом";
+//   }
+
+//   let str = value.toString().toLowerCase().replace(/ /g, '');
+//   let reverseStr = str.split('').reverse().join('');
+//     if (str === reverseStr) {
+//       return true;
+//     }
+//     return false;
+// };
 
 
-//------------------ ВТОРОЙ ВАРИАНТ
+//------------------ ВТОРОЙ ВАРИАНТ БЕЗ ЗНАКОВ ПРЕПИНАНИЯ
 
 // const isPalindrome = function(value) {
 
@@ -31,7 +34,7 @@ const isPalindrome = function(value) {
 
 //   let result = true;
 
-//   let str = value.toString().replace(/ /g, '');
+//   let str = value.toString().toLowerCase().replace(/ /g, '');
 //   let length = str.length;
 
 //   for (let i = 0; i < length/2; i++) {
@@ -44,7 +47,30 @@ const isPalindrome = function(value) {
 //     return result;
 // };
 
+// ---------- ТРЕТИЙ ВАРИАНТ - ЕСЛИ В СТРОКЕ ВСТРЕЧАЮТСЯ ЗНАКИ ПРЕПИНАНИЯ
+
+const isPalindrome = function(value) {
+
+    if ((typeof value) !== 'string' && (typeof value) !== 'number') {
+    return "Введенное значение не является ни строкой, ни числом";
+  }
+
+  let str = value.toString().toLowerCase().replace(/[^a-zA-Z0-9а-яА-ЯёЁ]/g, '');
+
+  let reverseStr = str.split('').reverse().join('');
+  if (str === reverseStr) {
+    return true;
+  }
+  return false;
+};
+
+
 console.log(isPalindrome(123321));
-console.log(isPalindrome('аргентина манит негра'));
+console.log(isPalindrome('  Аргентина манит негра'));
 console.log(isPalindrome([1, 2, 3]));
-console.log(isPalindrome('аргентина'));
+console.log(isPalindrome('Аргентина'));
+console.log(isPalindrome(' '));
+
+
+// ДЛЯ ТРЕТЬЕГО ВАРИАНТА
+console.log(isPalindrome("A man, a plan_, a canal: Panama"))
