@@ -98,36 +98,79 @@ function showResult(obj, value) {
 }
 
 
-// ВТОРОЙ ВАРИАНТ - без использования SuggestView
+// ------------------------- ВТОРОЙ ВАРИАНТ - без использования SuggestView
 
 // Для защиты от троттлинга
 let resultsObj = {};
-let count = 0;
 
 
-document.querySelector('.input1').addEventListener('input', (e) => {
-  
-  let addr = e.target.value;
-  if (addr.length == 0) {
-    count = 0;
-    document.querySelector('.variants').classList.add('invisible');
-    document.querySelector('.variants').innerHTML = '';
-    
-  } else {
-    count++;
-    document.querySelector('.variants').classList.remove('invisible');
-    // Дебаунсинг
-    if ((count % 2) === 0) {
-      let addr = e.target.value;
-      if (resultsObj[addr]) {
-        showVariants(addr);
-      } else {
-        ymaps.ready(search(addr));
-      }
+// Дебаунсинг
+function debounce(func, ms) {
+  let timeout;
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, arguments), ms);
+  };
+}
+
+// Защита от троттлинга
+function throttle(func, ms) {
+
+  let isThrottled = false,
+      savedArgs,
+      savedThis;
+
+  function wrapper() {
+
+    if (isThrottled) {
+      savedArgs = arguments;
+      savedThis = this;
+      return;
     }
+
+    func.apply(this, arguments);
+
+    isThrottled = true;
+
+    setTimeout(function() {
+      isThrottled = false;
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
   }
+
+  return wrapper;
+}
+
+
+document.querySelector('.input1').addEventListener('input', throttle(getSuggest, 500));
+
+
+function getSuggest(ev) {
+
+  console.log(ev.target.value)
   
-})
+    let addr = ev.target.value;
+    if (addr.length == 0) {
+
+      document.querySelector('.variants').classList.add('invisible');
+      document.querySelector('.variants').innerHTML = '';
+      
+    } else {
+
+      document.querySelector('.variants').classList.remove('invisible');
+
+        let addr = ev.target.value;
+        if (resultsObj[addr]) {
+          showVariants(addr);
+        } else {
+          ymaps.ready(search(addr));
+        }
+
+  }
+}
 
 
 function search(addr) {
@@ -138,7 +181,7 @@ function search(addr) {
          ymaps.geocode(addr, {
         results: 5
     }).then(function (res) {
-            // Выбираем 5 результатов геокодирования и сохраним для конкретного ключа в .
+            // Выбираем 5 результатов геокодирования и сохраним для конкретного ключа в resultsObj.
 
             for (let i = 0; i < 5; i++) {
               let obj = res.geoObjects.get(i);
@@ -169,18 +212,17 @@ document.querySelector('.main').addEventListener('click', (e) => {
 
   if (e.target.classList.contains('variant')) {
     document.querySelector('.input1').value = e.target.textContent;
+    debounce(showMessage1, 250)();
   }
 
   if (e.target.classList.contains('btn1')) {
-    document.querySelector('.variants').classList.add('invisible');
-    showMessage1(document.querySelector('.input1').value)
+    debounce(showMessage1, 250)();
   }
 
 });
 
-function showMessage1(message) {
+function showMessage1() {
   document.querySelector('.variants').classList.add('invisible');
   document.getElementById('messageHeader1').textContent = 'Данные получены: ';
-  document.getElementById('message1').textContent = message;
+  document.getElementById('message1').textContent = document.querySelector('.input1').value;
 }
-

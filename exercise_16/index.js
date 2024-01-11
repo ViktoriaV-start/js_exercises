@@ -16,5 +16,5 @@ console.log(HelperData.isValid('5555'));           //false
 console.log(HelperData.isValid('15.12.2023'));   // true
 console.log(HelperData.isValid('15.32.2023'));   // fase
 
-console.log(HelperData.restDays([2023, 11, 31]));
+console.log(HelperData.restDays([2024, 2, 8]));
 console.log(HelperData.pastDays([2023, 8, 1]));

@@ -7,20 +7,104 @@
 
 const PI = 3.14;
 
+// --------------------------------- ПЕРВЫЙ ВАРИАНТ
+
+// class Shape {
+
+//   type = 'фигуры';
+
+//   _countSquare() {}
+//   getSquare() {
+//     let result = this._countSquare();
+//     return `Площадь ${result[0]}: ${result[1]}`;
+//   }
+
+//   _countPerimeter() {}
+//   getPerimeter() {
+//     let result = this._countPerimeter();
+//     return `Периметр ${result[0]}: ${result[1]}`;
+//   }
+// }
+
+// class Rectangle extends Shape {
+
+//   type = 'прямоугольника';
+
+//   constructor(width, height) {
+//     super();
+//     this._width = width;
+//     this._height = height;
+//   }
+
+//   _countSquare() {
+//     let square = this._height * this._width
+//     return [this.type, square];
+//   }
+
+//   _countPerimeter() {
+//     let perimeter = (this._height + this._width) * 2;
+//     return [this.type, perimeter];
+//   }
+// }
+
+// class Triangle extends Shape {
+//   type = 'треугольника';
+
+//   constructor(side1, side2, side3) {
+//     super();
+//     this._side1 = side1;
+//     this._side2 = side2;
+//     this._side3 = side3;
+//   }
+
+//   _countSquare() {
+//     let p = (this._countPerimeter()[1]) / 2;
+//     let square = (Math.sqrt(p * (p - this._side1) * (p - this._side2) * (p - this._side3))).toFixed(2);
+//     return [this.type, square];
+//   }
+
+//   _countPerimeter() {
+//     let perimeter = (this._side1 + this._side2 + this._side3);
+//     return [this.type, perimeter];
+//   }
+// }
+
+// class Circle extends Shape {
+//   type = 'круга';
+
+//   constructor(radius) {
+//     super();
+//     this._radius = radius;
+//   }
+
+//   _countSquare() {
+//     let square = PI * this._radius * this._radius;
+//     return [this.type, square];
+//   }
+
+//   _countPerimeter() {
+//     let perimeter = 2 * this._radius * PI;
+//     return [this.type, perimeter];
+//   }
+// }
+
+
+// --------------------------------- ВТОРОЙ ВАРИАНТ
+
 class Shape {
 
   type = 'фигуры';
+  square = null;
+  perimeter = null;
 
   _countSquare() {}
   getSquare() {
-    let result = this._countSquare();
-    return `Площадь ${result[0]}: ${result[1]}`;
+    return `Площадь ${this.type}: ${this.square}`;
   }
 
   _countPerimeter() {}
   getPerimeter() {
-    let result = this._countPerimeter();
-    return `Периметр ${result[0]}: ${result[1]}`;
+    return `Периметр ${this.type}: ${this.perimeter}`;
   }
 }
 
@@ -32,16 +116,18 @@ class Rectangle extends Shape {
     super();
     this._width = width;
     this._height = height;
+    this.square = this._countSquare();
+    this.perimeter = this._countPerimeter();
   }
 
   _countSquare() {
     let square = this._height * this._width
-    return [this.type, square];
+    return square;
   }
 
   _countPerimeter() {
     let perimeter = (this._height + this._width) * 2;
-    return [this.type, perimeter];
+    return perimeter;
   }
 }
 
@@ -53,17 +139,19 @@ class Triangle extends Shape {
     this._side1 = side1;
     this._side2 = side2;
     this._side3 = side3;
+    this.square = this._countSquare();
+    this.perimeter = this._countPerimeter();
   }
 
   _countSquare() {
-    let p = (this._countPerimeter()[1]) / 2;
+    let p = this._countPerimeter() / 2;
     let square = (Math.sqrt(p * (p - this._side1) * (p - this._side2) * (p - this._side3))).toFixed(2);
-    return [this.type, square];
+    return square;
   }
 
   _countPerimeter() {
     let perimeter = (this._side1 + this._side2 + this._side3);
-    return [this.type, perimeter];
+    return perimeter;
   }
 }
 
@@ -73,30 +161,36 @@ class Circle extends Shape {
   constructor(radius) {
     super();
     this._radius = radius;
+    this.square = this._countSquare();
+    this.perimeter = this._countPerimeter();
   }
 
   _countSquare() {
     let square = PI * this._radius * this._radius;
-    return [this.type, square];
+    return square;
   }
 
   _countPerimeter() {
     let perimeter = 2 * this._radius * PI;
-    return [this.type, perimeter];
+    return perimeter;
   }
 }
+
+
+
+
 
 const rectangle = new Rectangle(5, 3);
 console.log(rectangle);
 console.log(rectangle.getPerimeter());
-console.log(rectangle.getSquare());
+console.log(rectangle.getSquare() + '\n');
 
 const triangle = new Triangle(5, 10, 7);
 console.log(triangle);
 console.log(triangle.getPerimeter());
-console.log(triangle.getSquare());
+console.log(triangle.getSquare() + '\n');
 
 const circle = new Circle(7);
 console.log(circle);
 console.log(circle.getPerimeter());
-console.log(circle.getSquare());
+console.log(circle.getSquare() + '\n');

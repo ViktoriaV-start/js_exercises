@@ -1,7 +1,8 @@
 // Задача на промисы: напишите функцию, которая принимает URL изображения и возвращает промис,
 // который разрешается с данными об изображении, когда оно загружено.
 // Когда говорится "промис разрешается с данными об изображении",
-// это означает, что промис должен быть успешно выполнен (resolved) с данными об изображении после того, как изображение будет загружено.
+// это означает, что промис должен быть успешно выполнен (resolved)
+// с данными об изображении после того, как изображение будет загружено.
 
 'use strict';
 
@@ -72,4 +73,29 @@ fetching(url)
 //   } catch (er) {
 //     console.log(er);
 //   }
+// }
+
+
+//------------------------ ТРЕТИЙ ВАРИАНТ
+
+// function fetching(url) {
+
+//   return new Promise((resolve) => {
+//     fetch(url)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error(response.status);
+//       }
+//       return response.blob();
+//     })
+//     .then((data) => {
+//       if (data.type !== 'image/jpeg' && data.type !== 'image/png') throw new Error('Error in type');
+
+//       const objectURL = URL.createObjectURL(data);
+//       document.querySelector('img').setAttribute('src', objectURL);
+//       resolve([data.size, data.type]);
+
+//     })
+//     .catch ((er) => console.log(er));
+//   });
 // }
