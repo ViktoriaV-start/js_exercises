@@ -1,5 +1,8 @@
 // Подсчитать максимальный объем данных, который можно записать в localStorage вашего браузера.
 
+// В современных системах 1 символ = 1 байт.
+// Второй вариант - new Blob([str]).size - размер данных в байтах
+
 'use strict';
 
 /**
@@ -8,6 +11,7 @@
  */
 function getMaxMemory() {
   let total = 0;
+  let totalBlob = 0;
   localStorage.clear();
 
   try{
@@ -26,15 +30,23 @@ function getMaxMemory() {
       continue;
     }
 
-    let size = (((localStorage[x].length + x.length) * 2)); 
-    total += size; 
-  } 
+    let size = (((localStorage.getItem(x).length + x.length))); 
+    total += size;
 
-  console.log("total = " + (total/1024/1024).toFixed(2) +" MB");
+    let str = localStorage.getItem(x) + x;
+    totalBlob += new Blob([str]).size;
+
+  }
+
+  total = (total/1024/1024).toFixed(2);
+  totalBlob = (totalBlob/1024/1024).toFixed(2);
+
+  console.log("total = " + total +" MB");
+  console.log("totalBlob = " + totalBlob +" MB");
 
   localStorage.clear();
 
-  return (total/1024/1024).toFixed(2);
+  return totalBlob;
 }
 
 const maxStorageMemory = getMaxMemory();

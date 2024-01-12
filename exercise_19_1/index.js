@@ -13,7 +13,7 @@
 // ПОДГОТОВИЛА ДВА ВАРИАНТА:
 // ПЕРВЫЙ ВАРИАНТ exercise_19;
 // ВТОРОЙ ВАРИАНТ exercise_19_1 - С ИСПОЛЬЗОВАНИЕМ КЛАССА;
-console.log(String(document.location.href).split('?')[1].split('&')[0].split('=')[1]);
+//console.log(String(document.location.href).split('?')[1].split('&')[0].split('=')[1]);
 
 window.open("https://oauth.vk.com/authorize?client_id=51786833&display=page&redirect_uri=https://viktoriav-start.github.io/posts/posts.html&scope=friends&response_type=token&v=:version&state=123456");
 

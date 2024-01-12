@@ -150,8 +150,6 @@ document.querySelector('.input1').addEventListener('input', throttle(getSuggest,
 
 function getSuggest(ev) {
 
-  console.log(ev.target.value)
-  
     let addr = ev.target.value;
     if (addr.length == 0) {
 

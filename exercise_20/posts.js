@@ -2,7 +2,7 @@
 
 
 // Это мой токен для разработки, действует примерно сутки
-const TOKEN = 'vk1.a.MsYxJnEPwXwzWltP-ARxb49Wgkph6v5u3g3gHEASMz6IlatnjpV_Z0kkniogJezBFsJFmPAl28CqeWq643JUiqqE00Uw1UAcL2eFJC5OB4LDJ2F3zSpELBlfl75saWQHyLzI4JnZZTJ5KiepsVaR8-mwopmlylP3CPLcH9SUislDl1as1vrl6Y6vBx4DZLJK';
+const TOKEN = 'vk1.a.9Kk6g5bhl8nNMRcnBDodjqiGAqWypxKR9i-DhYXdrRPVp-axeDWeWYePdjzXt7CyUWc7aThvRJB8isvdOK2ki29CNg3AK1mk9A7ZekGcttKRkeWJS4rIrr2VWfSAdo123bLWlGUM8sxCLtPdYfjeqp1H4nGUurSfSHkcOjAjR2QNPeXKo5c-HmRMmHoDaa8t';
 
 class Posts {
 
@@ -16,13 +16,15 @@ class Posts {
 
   constructor() {
     this.maxStorageMemory = localStorage.maxStorageMemory ?? this.getMaxMemory();
-    this.init();
   }
 
   init() {
-    if (localStorage.counter && localStorage.counter !== 0) {
+    if (localStorage.getItem('counter')) {
       this.counter = localStorage.counter;
       this.offset = localStorage.counter;
+      this.insertPosts();
+    } else {
+      addScript();
     }
 
     // Слушатель события скрола, вызвать функцию обработчик
@@ -65,13 +67,16 @@ class Posts {
    */
   scrollContent() {
 
-    if (document.querySelector('.main__content').scrollTop + 500 >= document.querySelector('.main__content').scrollHeight) {
+    let elem = document.querySelector('.main__content');
+    let scrollBottom = elem.scrollHeight - elem.scrollTop - elem.clientHeight;
+  
+    if (scrollBottom <= 5000) {
 
       if (Object.keys(this.posts).length > this.tempCounter + 1) {
         this.insertPosts();
       }
 
-      if (this.tempCounter >= 100 ){
+      if (this.tempCounter >= 100 || !this.tempCounter){
         console.log('Новый запрос');
         this.tempCounter = 0;
         this.offset = this.counter;
@@ -87,7 +92,7 @@ class Posts {
     let postsMarkup = '';
 
 // При первом входе
-    if (this.offset === 0) {
+    if (this.offset == 0) {
       console.log('Первичный вход')
       for (let i = 0; i < 5; i++) {
 
@@ -100,7 +105,7 @@ class Posts {
       this.isLocalStorageRendered = true;
     }
 
-    if (localStorage.length !== 0 && !this.isLocalStorageRendered ) {
+    if (localStorage.length != 0 && !this.isLocalStorageRendered ) {
       console.log('Рендер постов из localStorage');
 
       let lng = localStorage.counter;
@@ -112,7 +117,7 @@ class Posts {
       }
       this.isLocalStorageRendered = true;
 
-    } else if (localStorage.length !== 0 && this.isLocalStorageRendered && this.offset !== 0) {
+    } else if (localStorage.length != 0 && this.isLocalStorageRendered && this.offset != 0 && Object.keys(this.posts).length) {
       console.log('Рендер новых постов при offset != 0 и отображенном localStorage')
 
       for (let i = 0; i < 5; i++) {
@@ -193,14 +198,14 @@ class Posts {
    */
   getStorageValue() {
     let total = 0;
-    for(let x in localStorage) {
 
+    for(let x in localStorage) {
       if (!localStorage.hasOwnProperty(x)) {
         continue;
       }
 
-      let size = (((localStorage[x].length + x.length) * 2));
-      total += size;
+      let str = localStorage.getItem(x) + x;
+      total += new Blob([str]).size;
     }
     return (total/1024).toFixed(2);
   }
@@ -209,7 +214,7 @@ class Posts {
 }
 
 const posts = new Posts();
-addScript();
+posts.init();
 
 /**
  * Загрузить данные VK
