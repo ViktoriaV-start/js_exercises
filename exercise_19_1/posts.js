@@ -101,7 +101,7 @@ class Posts {
       this.isLocalStorageRendered = true;
     }
 
-    if (localStorage.length != 0 && !this.isLocalStorageRendered ) {
+    if (localStorage.length && !this.isLocalStorageRendered ) {
       console.log('Рендер постов из localStorage');
 
       let lng = +localStorage.counter;
@@ -113,7 +113,7 @@ class Posts {
       }
       this.isLocalStorageRendered = true;
 
-    } else if (localStorage.length != 0 && this.isLocalStorageRendered && this.offset != 0 && Object.keys(this.posts).length) {
+    } else if (localStorage.length && this.isLocalStorageRendered && this.offset && Object.keys(this.posts).length) {
       console.log('Рендер новых постов при offset != 0 и отображенном localStorage')
 
       for (let i = 0; i < 5; i++) {

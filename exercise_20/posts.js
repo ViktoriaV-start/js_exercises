@@ -15,7 +15,7 @@ class Posts {
   maxStorageMemory = 0;
 
   constructor() {
-    this.maxStorageMemory = localStorage.maxStorageMemory ?? this.getMaxMemory();
+    this.maxStorageMemory = localStorage.getItem('maxStorageMemory') ?? this.getMaxMemory();
   }
 
   init() {
@@ -117,7 +117,7 @@ class Posts {
       }
       this.isLocalStorageRendered = true;
 
-    } else if (localStorage.length != 0 && this.isLocalStorageRendered && this.offset != 0 && Object.keys(this.posts).length) {
+    } else if (localStorage.length && this.isLocalStorageRendered && this.offset && Object.keys(this.posts).length) {
       console.log('Рендер новых постов при offset != 0 и отображенном localStorage')
 
       for (let i = 0; i < 5; i++) {
@@ -188,6 +188,7 @@ class Posts {
     console.log("Максимальный размер localStorage = " + total +" KB");
 
     localStorage.clear();
+    localStorage.setItem('maxStorageMemory', total);
 
     return total;
   }
@@ -204,8 +205,8 @@ class Posts {
         continue;
       }
 
-      let str = localStorage.getItem(x) + x;
-      total += new Blob([str]).size;
+      let size = localStorage.getItem(x).length + x.length;
+      total += size;
     }
     return (total/1024).toFixed(2);
   }
