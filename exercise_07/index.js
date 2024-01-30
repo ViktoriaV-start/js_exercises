@@ -26,30 +26,60 @@ const func3 = () => {
  * @param {Function []} arr
  * @return {void}
  */
-const execute = (arr) => {
+// const execute = (arr) => {
 
-  async function executeItem(el) {
+//   async function executeItem(el) {
+
+//     return new Promise((resolve) => {
+//       let timeout = Math.floor(Math.random() * (2000)) + 500;
+//         console.log("Сгенерированное время ожидания: " + timeout)
+//         setTimeout(() => {
+//           el();
+//           resolve();
+//         }, timeout);
+//       });
+//     }
+
+//   // Дожидается выполнения текущего промиса и только после этого вызывает следующую функцию
+//   const run = (j = 0) => {
+
+//     let i = j;
+
+//     executeItem(arr[i]).then(() => {
+//       i++;
+//       if (arr[i]) run(i);
+//     });
+
+//   }
+
+//   run();
+
+// }
+
+// execute([func1, func2, func3]);
+
+
+function execute(arr) {
+  if (!Array.isArray(arr) || !arr.length) return;
+
+  const executeItem = (item) => {
 
     return new Promise((resolve) => {
-      let timeout = Math.floor(Math.random() * (2000)) + 500;
-        console.log("Сгенерированное время ожидания: " + timeout)
-        setTimeout(() => {
-          el();
-          resolve();
-        }, timeout);
-      });
-    }
+      let timeout = Math.round(Math.random() * 2000 + 500);
+      setTimeout(() => {
+        item();
+        console.log(timeout);
+        resolve();
+      }, timeout);
+    })
+    .catch(err => console.error(err));
+  }
 
-  // Дожидается выполнения текущего промиса и только после этого вызывает следующую функцию
-  const run = (j = 0) => {
-
-    let i = j;
+  const run = (i = 0) => {
 
     executeItem(arr[i]).then(() => {
-      i++;
-      if (arr[i]) run(i);
-    });
-
+      if (arr[i + 1]) run(i+1);
+    })
   }
 
   run();

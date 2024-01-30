@@ -100,3 +100,8 @@ function jsonToList(value) {
 
 console.log(jsonToList(products));
 console.log(jsonToList('[]'));
+
+let x = JSON.parse(products).values();
+for (let value of x) {
+  console.log(value)
+}

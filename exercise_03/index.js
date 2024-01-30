@@ -143,13 +143,16 @@ class MathX  {
 }
 
 let serialNumber = 5;
-console.log(colors.blue.bold(`${serialNumber} номер в ряду Фибоначчи равен `) + colors.blue((MathX.fibN())));
+//console.log(colors.blue.bold(`${serialNumber} номер в ряду Фибоначчи равен `) + colors.blue((MathX.fibN())));
 
 let number = 22;
-console.log(colors.blue.bold(`Ряд Фибоначчи до числа ${number}:   `) + colors.blue(MathX.fibRow()))
+//console.log(colors.blue.bold(`Ряд Фибоначчи до числа ${number}:   `) + colors.blue(MathX.fibRow()))
 
-serialNumber = 27;
+let tm = Date.now();
+serialNumber = 10027;
 console.log(colors.blue.bold(`${serialNumber}-e простое число:   `) + colors.blue(MathX.getPrime()));
 
 number = 105;
-console.log(colors.blue.bold(`Простыe числа до ${number}:   `) + colors.blue(MathX.primes()));
+//console.log(colors.blue.bold(`Простыe числа до ${number}:   `) + colors.blue(MathX.primes()));
+
+console.log(Date.now() - tm)
