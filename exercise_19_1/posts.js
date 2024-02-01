@@ -1,7 +1,7 @@
 // ВТОРОЙ ВАРИАНТ - С КЛАССОМ
 
 // Это мой токен для разработки, действует примерно сутки
-const TOKEN = 'vk1.a.9Kk6g5bhl8nNMRcnBDodjqiGAqWypxKR9i-DhYXdrRPVp-axeDWeWYePdjzXt7CyUWc7aThvRJB8isvdOK2ki29CNg3AK1mk9A7ZekGcttKRkeWJS4rIrr2VWfSAdo123bLWlGUM8sxCLtPdYfjeqp1H4nGUurSfSHkcOjAjR2QNPeXKo5c-HmRMmHoDaa8t';
+const TOKEN = 'vk1.a.LpXZ1Bn6w5nfCUSIIra-QskQSKGzHmmH2V6F61k1HeyCwSJURmsorvKZULN9qMd3esvSTsH92dbWgP9lx_ObInWLVc73gckPzHupUMt5sudxzpSgKR6kxqY7fWiWNm_e7qITxJ4ZRD_cKYemMHI9-krgUGfBZF6tU_JwVi4o7xXdOlUSChfeTPTGLmEssAxW';
 
 class Posts {
 
